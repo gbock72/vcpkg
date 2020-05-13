@@ -7,8 +7,10 @@ while [ "$vcpkgRootDir" != "/" ] && ! [ -e "$vcpkgRootDir/.vcpkg-root" ]; do
 done
 
 # Enable using this entry point on windows from git bash by redirecting to the .bat file.
-unixName=$(uname -s | sed 's/MINGW.*_NT.*/MINGW_NT/')
-if [ "$unixName" = "MINGW_NT" ]; then
+#unixName=$(uname -s | sed 's/MINGW.*_NT.*/MINGW_NT/')
+#if [ "$unixName" = "MINGW_NT" ]; then
+unixName=$(uname -s | sed 's/CYGWIN*.*/CYGWIN64/')
+if [ "$unixName" = "CYGWIN64" ]; then
   vcpkgRootDir=$(cygpath -aw "$vcpkgRootDir")
   cmd "/C $vcpkgRootDir\\bootstrap-vcpkg.bat" || exit 1
   exit 0
